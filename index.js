@@ -7,7 +7,11 @@ import cors from 'cors'
 const port = process.env.PORT ?? 4000;
 const app = express();
 const server = createServer(app);
-const io = new Server(server, {});
+const io = new Server(server, {
+  cors:{
+    origin:'*',
+  }
+});
 
 
 io.on("connection", async (socket) => {
