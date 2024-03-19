@@ -2,13 +2,12 @@ import express from "express";
 import logger from "morgan";
 import { Server } from "socket.io";
 import { createServer } from "node:http";
+import cors from 'cors'
 
-const port = process.env.PORT ?? 3000;
+const port = process.env.PORT ?? 4000;
 const app = express();
 const server = createServer(app);
-const io = new Server(server, {
-  connectionStateRecovery: {},
-});
+const io = new Server(server, {});
 
 
 io.on("connection", async (socket) => {
@@ -23,7 +22,7 @@ io.on("connection", async (socket) => {
   });
 });
 
-
+app.use(cors());
 app.use(logger("dev"));
 
 server.listen(port, () => {
