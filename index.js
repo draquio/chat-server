@@ -1,7 +1,6 @@
 import express from "express";
 import logger from "morgan";
 import dotenv from "dotenv";
-import { createClient } from "@libsql/client";
 import { Server } from "socket.io";
 import { createServer } from "node:http";
 
@@ -15,16 +14,6 @@ const io = new Server(server, {
   connectionStateRecovery: {},
 });
 
-const db = createClient({
-  url: process.env.DB_url,
-  authToken: process.env.DB_token
-});
-await db.execute(`
-  CREATE TABLE IF NOT EXISTS messages(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    content TEXT
-  )
-`)
 
 io.on("connection", async (socket) => {
   console.log("A user has coneected!");
