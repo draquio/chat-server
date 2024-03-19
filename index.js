@@ -1,11 +1,7 @@
 import express from "express";
 import logger from "morgan";
-import dotenv from "dotenv";
 import { Server } from "socket.io";
 import { createServer } from "node:http";
-
-
-dotenv.config();
 
 const port = process.env.PORT ?? 3000;
 const app = express();
