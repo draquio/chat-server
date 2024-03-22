@@ -13,22 +13,31 @@ const io = new Server(server, {
   }
 });
 
-
-io.on("connection", async (socket) => {
+let connectedUsers = {};
+io.on("connection", (socket) => {
   console.log("A user has coneected!");
+
+  socket.on("login", (username) => {
+    connectedUsers[socket.id] = username;
+    io.emit("users updated", Object.values(connectedUsers));
+  });
 
   socket.on("disconnect", () => {
     console.log("An user has disconnected");
+    delete connectedUsers[socket.id];
+    io.emit("users updated", Object.values(connectedUsers));
   });
 
-  socket.on("message", async (msg) => {
+  socket.on("message",  (msg) => {
     socket.broadcast.emit("message", msg);
   });
 });
 
 app.use(cors());
 app.use(logger("dev"));
-
+app.get('/ping', (req, res) => {
+  res.send('on')
+})
 server.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
