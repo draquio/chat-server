@@ -15,7 +15,7 @@ const io = new Server(server, {
     credentials: true
   }
 });
-app.listen(3000, () => console.log("Server ready on port 3000."));
+app.listen(3000, () => "Funcionando");
 
 let connectedUsers = {};
 io.on("connection", (socket) => {
