@@ -4,17 +4,18 @@ import { Server } from "socket.io";
 import { createServer } from "node:http";
 import cors from 'cors'
 
-const port = process.env.PORT ?? 4000;
+const port = process.env.PORT ?? 3000;
 const app = express();
 const server = createServer(app);
 const io = new Server(server, {
   cors:{
-    origin: '*',
+    origin: 'https://chat-draquio.vercel.app',
     methods: ['GET', 'POST'],
     allowedHeaders: ['my-custom-header'],
     credentials: true
   }
 });
+app.listen(3000, () => console.log("Server ready on port 3000."));
 
 let connectedUsers = {};
 io.on("connection", (socket) => {
