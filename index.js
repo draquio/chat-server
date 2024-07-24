@@ -11,11 +11,10 @@ const io = new Server(server, {
   cors:{
     origin: '*',
     methods: ['GET', 'POST'],
-    allowedHeaders: ['my-custom-header'],
     credentials: true
   }
 });
-app.listen(3000, () => "Funcionando");
+app.listen(3000, () => console.log('listening on *:3000'));
 
 let connectedUsers = {};
 io.on("connection", (socket) => {
